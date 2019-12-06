@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_take_it_off_please/modules/profile/profile.page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,16 +15,20 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    // widget.focusNode.addListener(_ensureVisible);
-    // WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     scrollController.dispose();
-    // WidgetsBinding.instance.removeObserver(this);
-    // widget.focusNode.removeListener(_ensureVisible);
     super.dispose();
+  }
+
+  _navigateToProfile() {
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute<void>(
+            title: "Click me",
+            builder: (BuildContext context) => ProfilePage()),
+        (Route<dynamic> route) => false);
   }
 
   _buildForm() {
@@ -39,7 +45,9 @@ class _LoginPageState extends State<LoginPage> {
             decoration: InputDecoration(hintText: "Senha"),
           ),
           RaisedButton(
-            onPressed: (){},
+            onPressed: () {
+              _navigateToProfile();
+            },
             child: Text("Entrar"),
           )
         ],
@@ -47,30 +55,33 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _animateToUpScroll(){
-     scrollController.animateTo(1, duration: Duration(milliseconds: 500), curve: Curves.ease);
+  _animateToUpScroll() {
+    scrollController.animateTo(1,
+        duration: Duration(milliseconds: 500), curve: Curves.ease);
     scrollable = true;
   }
 
-  _animateToDownScroll(){
-    scrollController.animateTo(0, duration: Duration(milliseconds: 500), curve: Curves.ease);
+  _animateToDownScroll() {
+    scrollController.animateTo(0,
+        duration: Duration(milliseconds: 500), curve: Curves.ease);
     scrollable = false;
   }
 
   @override
   Widget build(BuildContext context) {
     openedKeyboard = MediaQuery.of(context).viewInsets.bottom > 0;
-    if(openedKeyboard){
+    if (openedKeyboard) {
       _animateToUpScroll();
-    }
-    else if(scrollable){
+    } else if (scrollable) {
       _animateToDownScroll();
     }
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           controller: scrollController,
-          physics: scrollable ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
+          physics: scrollable
+              ? AlwaysScrollableScrollPhysics()
+              : NeverScrollableScrollPhysics(),
           child: _buildForm(),
         ),
       ),
