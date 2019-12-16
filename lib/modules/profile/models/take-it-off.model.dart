@@ -1,7 +1,6 @@
 import 'take-it-off-item.model.dart';
 
 class TakeItOff {
-  int userId;
   String name;
   String description;
   List<TakeItOffItem> itens;
@@ -19,14 +18,12 @@ class TakeItOff {
   }
 
   TakeItOff.fromJson(Map<String, dynamic> json) {
-    userId = int.parse(json['userId']);
     name = json['name'];
     description = json['description'];
     itens = json['itens'];
   }
 
   Map<String, dynamic> toJson() => {
-        'userId': userId,
         'name': name,
         'description': description,
         'itens': itens

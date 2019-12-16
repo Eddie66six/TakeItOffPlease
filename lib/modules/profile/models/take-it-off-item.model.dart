@@ -12,5 +12,5 @@ class TakeItOffItem {
   }
 
   Map<String, dynamic> toJson() =>
-      {'userId': takeItOffItemId, 'name': name, 'description': description};
+      {'takeItOffItemId': takeItOffItemId, 'name': name, 'description': description};
 }
