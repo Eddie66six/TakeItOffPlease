@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_take_it_off_please/modules/profile/models/take-it-off-item.model.dart';
-import 'package:flutter_take_it_off_please/modules/profile/models/take-it-off.model.dart';
-import 'package:flutter_take_it_off_please/modules/profile/models/user.dart';
 import 'package:flutter_take_it_off_please/modules/profile/profile.page.dart';
 
 class LoginPage extends StatefulWidget {

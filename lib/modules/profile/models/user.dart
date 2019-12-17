@@ -11,11 +11,20 @@ class User {
   //TODO remove
   User(this.userId, this.name);
 
-  addNewTakeItOff(TakeItOff takeItOff) {
-    if(listTakeItOff == null) {
+  addNewTakeItOff(String nome) {
+    if (listTakeItOff == null) {
       listTakeItOff = new List<TakeItOff>();
     }
-    listTakeItOff.add(takeItOff);
+    var add = true;
+    for (var i = 0; i < listTakeItOff.length; i++) {
+      if (listTakeItOff[i].name == nome) {
+        add = false;
+        break;
+      }
+    }
+    if (add) {
+      listTakeItOff.add(TakeItOff(nome, ""));
+    }
   }
 
   User.fromJson(Map<String, dynamic> json) {
@@ -25,7 +34,7 @@ class User {
     listTakeItOff = json["listTakeItOff"];
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "userId": userId,
       "name": name,

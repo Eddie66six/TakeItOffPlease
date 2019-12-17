@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'models/take-it-off-item.model.dart';
@@ -29,9 +31,10 @@ class _AddTakeItOffState extends State<AddTakeItOff> {
 
   addNewTakeItOff(String name){
     //var takeItOff = TakeItOff("Pizza", "seila");
-    user.addNewTakeItOff(TakeItOff("Pizza", "seila"));
+    user.addNewTakeItOff(name);
     // takeItOff.addItem(TakeItOffItem("Cebola", ""));
     // takeItOff.addItem(TakeItOffItem("Ovo", ""));
+    print(jsonEncode(user));
   }
 
   @override
@@ -43,11 +46,15 @@ class _AddTakeItOffState extends State<AddTakeItOff> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                TextField(
-                  controller: inputController,
+                Expanded(
+                  child: TextField(
+                    controller: inputController,
+                  )
                 ),
                 InkWell(
-                  onTap: (){},
+                  onTap: (){
+                    addNewTakeItOff(inputController.text);
+                  },
                   child: Icon(Icons.add),
                 )
               ],
