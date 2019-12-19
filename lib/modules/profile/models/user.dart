@@ -11,19 +11,28 @@ class User {
   //TODO remove
   User(this.userId, this.name);
 
-  addNewTakeItOff(String nome) {
-    if (listTakeItOff == null) {
-      listTakeItOff = new List<TakeItOff>();
-    }
+  get countItens => listTakeItOff?.length ?? 0;
+
+  addNewTakeItOff(String name) {
+    if(name == null || name == "" || name == " ") return;
+    if (listTakeItOff == null) listTakeItOff = new List<TakeItOff>();
     var add = true;
     for (var i = 0; i < listTakeItOff.length; i++) {
-      if (listTakeItOff[i].name == nome) {
+      if (listTakeItOff[i].name == name) {
         add = false;
         break;
       }
     }
-    if (add) {
-      listTakeItOff.insert(0, TakeItOff(nome, ""));
+    if (add) listTakeItOff.insert(0, TakeItOff(name, ""));
+  }
+
+  removeTakeItOff(String name){
+    if (listTakeItOff == null) return;
+    for (var i = 0; i < listTakeItOff.length; i++) {
+      if (listTakeItOff[i].name == name) {
+        listTakeItOff.removeAt(i);
+        break;
+      }
     }
   }
 

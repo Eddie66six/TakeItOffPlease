@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _navigateToProfile() {
+    _animateToDownScroll();
     Navigator.of(context).pushAndRemoveUntil(
         CupertinoPageRoute<void>(
             title: "Click me",

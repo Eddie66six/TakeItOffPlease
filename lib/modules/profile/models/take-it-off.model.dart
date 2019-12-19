@@ -7,14 +7,29 @@ class TakeItOff {
 
   TakeItOff(this.name, this.description, {this.itens});
 
-  addItem(TakeItOffItem item) {
+  get countItens => itens?.length ?? 0;
+
+  addItem(String name) {
+    if(name == null || name == "" || name == " ") return;
     if(itens == null) itens = List<TakeItOffItem>();
-    itens.add(item);
+    var add = true;
+    for (var i = 0; i < itens.length; i++) {
+      if(itens[i].name == name){
+        add = false;
+        break;
+      }
+    }
+    if(add) itens.insert(0, TakeItOffItem(name, ""));
   }
 
-  removeItem(TakeItOffItem item) {
+  removeItem(String name) {
     if(itens == null) return;
-    itens.removeAt(itens.indexOf(item));
+    for (var i = 0; i < itens.length; i++) {
+      if(itens[i].name == name){
+        itens.removeAt(i);
+        break;
+      }
+    }
   }
 
   TakeItOff.fromJson(Map<String, dynamic> json) {

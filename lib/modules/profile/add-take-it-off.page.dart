@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
-import 'models/take-it-off-item.model.dart';
-import 'models/take-it-off.model.dart';
+import 'package:flutter_take_it_off_please/components/normal-card.component.dart';
+import 'package:flutter_take_it_off_please/modules/profile/models/take-it-off.model.dart';
+import '../add-item-take-it-off.page.dart';
 import 'models/user.dart';
 
 class AddTakeItOff extends StatefulWidget {
@@ -33,42 +31,71 @@ class _AddTakeItOffState extends State<AddTakeItOff> {
     user.addNewTakeItOff(name);
   }
 
+  removeTakeItOff(String name){
+    user.removeTakeItOff(name);
+  }
+
+  addNewItemTakeItOff(TakeItOff takeItOff){
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => AddItemTakeItOffPage(takeItOff)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: inputController,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(hintText: "Insira o nome da sua nova lista"),
+                      controller: inputController,
+                    )
+                  ),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        addNewTakeItOff(inputController.text);
+                        inputController.clear();
+                      });
+                    },
+                    child: Icon(Icons.add),
                   )
-                ),
-                InkWell(
-                  onTap: (){
-                    setState(() {
-                      addNewTakeItOff(inputController.text);
-                      inputController.clear();
-                    });
-                  },
-                  child: Icon(Icons.add),
+                ],
+              ),
+              user.countItens == 0 ? Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/3),
+                child: Text("Voce ainda nao adicionou nenhum item")
+              ) :
+              Expanded(
+                child: ListView.builder(
+                  itemCount: user.countItens,
+                  itemBuilder: (BuildContext ctxt, int index) {
+                      return NormalCardComponent(
+                        user.listTakeItOff[index].name,
+                        subText: " - Qtde: " + user.listTakeItOff[index].countItens.toString(),
+                        clickOne: (){
+                          setState(() {
+                            addNewItemTakeItOff(user.listTakeItOff[index]);
+                          });
+                        },
+                        iconClickOne: Icon(Icons.add),
+                        clickTwo: (){
+                          setState(() {
+                            removeTakeItOff(user.listTakeItOff[index].name);
+                          });
+                        },
+                        iconClickTwo: Icon(Icons.remove),
+                      );
+                  }
                 )
-              ],
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: user.listTakeItOff?.length ?? 0,
-                itemBuilder: (BuildContext ctxt, int index) {
-                    return new Text(user.listTakeItOff[index].name);
-                }
               )
-            )
-          ],
-        )
-      ),
+            ],
+        ),
+      )
     );
   }
 }
