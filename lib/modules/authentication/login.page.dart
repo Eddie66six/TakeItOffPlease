@@ -8,13 +8,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var scrollController = ScrollController();
+  var scrollController;
   var openedKeyboard = false;
   var scrollable = false;
 
   @override
   void initState() {
     super.initState();
+    scrollController = ScrollController(initialScrollOffset: 0.0);
   }
 
   @override
@@ -24,7 +25,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _navigateToProfile() {
-    _animateToDownScroll();
     Navigator.of(context).pushAndRemoveUntil(
         CupertinoPageRoute<void>(
             title: "Click me",
@@ -57,25 +57,29 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _animateToUpScroll() {
-    scrollController.animateTo(1,
+    scrollController.animateTo(1.0,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
     scrollable = true;
   }
 
   _animateToDownScroll() {
-    scrollController.animateTo(0,
+    scrollController.animateTo(0.0,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
     scrollable = false;
   }
 
-  @override
-  Widget build(BuildContext context) {
+  _checkScroll(){
     openedKeyboard = MediaQuery.of(context).viewInsets.bottom > 0;
     if (openedKeyboard) {
       _animateToUpScroll();
     } else if (scrollable) {
       _animateToDownScroll();
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _checkScroll();
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
