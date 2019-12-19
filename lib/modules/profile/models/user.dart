@@ -23,7 +23,7 @@ class User {
       }
     }
     if (add) {
-      listTakeItOff.add(TakeItOff(nome, ""));
+      listTakeItOff.insert(0, TakeItOff(nome, ""));
     }
   }
 

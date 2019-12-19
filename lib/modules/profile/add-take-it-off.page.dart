@@ -30,11 +30,7 @@ class _AddTakeItOffState extends State<AddTakeItOff> {
   }
 
   addNewTakeItOff(String name){
-    //var takeItOff = TakeItOff("Pizza", "seila");
     user.addNewTakeItOff(name);
-    // takeItOff.addItem(TakeItOffItem("Cebola", ""));
-    // takeItOff.addItem(TakeItOffItem("Ovo", ""));
-    print(jsonEncode(user));
   }
 
   @override
@@ -53,16 +49,22 @@ class _AddTakeItOffState extends State<AddTakeItOff> {
                 ),
                 InkWell(
                   onTap: (){
-                    addNewTakeItOff(inputController.text);
+                    setState(() {
+                      addNewTakeItOff(inputController.text);
+                      inputController.clear();
+                    });
                   },
                   child: Icon(Icons.add),
                 )
               ],
             ),
-            ListView.builder(
-              itemBuilder: (BuildContext ctxt, int index) {
-                  return new Text(user.listTakeItOff[index].name);
-              }
+            Expanded(
+              child: ListView.builder(
+                itemCount: user.listTakeItOff?.length ?? 0,
+                itemBuilder: (BuildContext ctxt, int index) {
+                    return new Text(user.listTakeItOff[index].name);
+                }
+              )
             )
           ],
         )
