@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_take_it_off_please/modules/authentication/login.page.dart';
+import 'package:flutter_take_it_off_please/modules/profile/friends.page.dart';
 
 import 'add-take-it-off.page.dart';
+import 'models/user.model.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -10,10 +12,24 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  User user;
+  @override
+  void initState() {
+    super.initState();
+    user = User(1, "Guilherme rodrigues", "seila seila 123 seila aaa", "1a2c3e");
+  }
+
   _navigateToAddNewTakeIdOff() {
     Navigator.of(context).push(CupertinoPageRoute<void>(
       title: "",
-      builder: (BuildContext context) => AddTakeItOff(),
+      builder: (BuildContext context) => AddTakeItOff(user),
+    ));
+  }
+
+  _navigateToAFriends() {
+    Navigator.of(context).push(CupertinoPageRoute<void>(
+      title: "",
+      builder: (BuildContext context) => FriendsPage(user),
     ));
   }
 
@@ -46,12 +62,12 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 5, top: 20),
-                  child: Text("Guilherme Rodrigues", textAlign: TextAlign.center,
+                  child: Text(user.name, textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 26), overflow: TextOverflow.ellipsis),
               ),
               Container(
                   margin: EdgeInsets.only(bottom: 15),
-                  child: Text("Sou carnivoro.... :B asdfasdf sadfasdfasdfasd fasdf asdf assdfasd fasdfa",
+                  child: Text(user.description,
                     textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18, color: Colors.grey), overflow: TextOverflow.fade),
               ),
@@ -63,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Container(
                 child: RaisedButton(
-                  onPressed: (){},
+                  onPressed: (){_navigateToAFriends();},
                   child: Text("Amigos"),
                 ),
               ),

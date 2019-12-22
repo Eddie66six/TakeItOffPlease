@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_take_it_off_please/components/normal-card.component.dart';
 import 'package:flutter_take_it_off_please/modules/profile/models/take-it-off.model.dart';
 import '../add-item-take-it-off.page.dart';
-import 'models/user.dart';
+import 'models/user.model.dart';
 
 class AddTakeItOff extends StatefulWidget {
+  User user;
+  AddTakeItOff(this.user);
   @override
   _AddTakeItOffState createState() => _AddTakeItOffState();
 }
@@ -12,13 +14,10 @@ class AddTakeItOff extends StatefulWidget {
 class _AddTakeItOffState extends State<AddTakeItOff> {
 
   TextEditingController inputController;
-
-  User user;
   @override
   void initState() {
     super.initState();
     inputController = TextEditingController();
-    user = User(1, "Guilherme");
   }
 
   @override
@@ -28,11 +27,11 @@ class _AddTakeItOffState extends State<AddTakeItOff> {
   }
 
   addNewTakeItOff(String name){
-    user.addNewTakeItOff(name);
+    widget.user.addNewTakeItOff(name);
   }
 
   removeTakeItOff(String name){
-    user.removeTakeItOff(name);
+    widget.user.removeTakeItOff(name);
   }
 
   addNewItemTakeItOff(TakeItOff takeItOff){
@@ -66,26 +65,26 @@ class _AddTakeItOffState extends State<AddTakeItOff> {
                   )
                 ],
               ),
-              user.countItens == 0 ? Container(
+              widget.user.countItens == 0 ? Container(
                 margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/3),
                 child: Text("Voce ainda nao adicionou nenhum item")
               ) :
               Expanded(
                 child: ListView.builder(
-                  itemCount: user.countItens,
+                  itemCount: widget.user.countItens,
                   itemBuilder: (BuildContext ctxt, int index) {
                       return NormalCardComponent(
-                        user.listTakeItOff[index].name,
-                        subText: " - Qtde: " + user.listTakeItOff[index].countItens.toString(),
+                        widget.user.listTakeItOff[index].name,
+                        subText: "*Qtde: " + widget.user.listTakeItOff[index].countItens.toString(),
                         clickOne: (){
                           setState(() {
-                            addNewItemTakeItOff(user.listTakeItOff[index]);
+                            addNewItemTakeItOff(widget.user.listTakeItOff[index]);
                           });
                         },
                         iconClickOne: Icon(Icons.add),
                         clickTwo: (){
                           setState(() {
-                            removeTakeItOff(user.listTakeItOff[index].name);
+                            removeTakeItOff(widget.user.listTakeItOff[index].name);
                           });
                         },
                         iconClickTwo: Icon(Icons.remove),

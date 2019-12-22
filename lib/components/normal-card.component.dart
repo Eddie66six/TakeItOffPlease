@@ -31,7 +31,7 @@ class _NormalCardComponentState extends State<NormalCardComponent> {
                   children: <Widget>[
                     Flexible(child: Text(widget.text, style: TextStyle(fontSize: 24), overflow: TextOverflow.ellipsis)),
                     widget.subText == null ? Container() :
-                      Flexible(child: Text(widget.subText, style: TextStyle(), overflow: TextOverflow.ellipsis)),
+                      Flexible(child: Text(widget.subText, style: TextStyle(color: Colors.grey), overflow: TextOverflow.ellipsis)),
                   ],
               ),
             ),
