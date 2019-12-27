@@ -3,6 +3,8 @@ class Friend {
   String name;
   String description;
   String code;
+  //internal
+  bool isCheked;
 
   Friend(this.friendId, this.name, this.description, this.code);
 

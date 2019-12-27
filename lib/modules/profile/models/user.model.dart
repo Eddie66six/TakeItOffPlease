@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'friend.model.dart';
+import 'processed-list.model.dart';
 import 'take-it-off.model.dart';
 
 class User {
@@ -11,13 +12,14 @@ class User {
   String accessToken;
   List<TakeItOff> listTakeItOff;
   List<Friend> listFriends;
+  List<ProcessedList> listProcessedList;
 
   //TODO remove
   User(this.userId, this.name, this.description, this.code);
 
   get countItens => listTakeItOff?.length ?? 0;
-
   get countFriends => listFriends?.length ?? 0;
+  get countProcessedList => listProcessedList?.length ?? 0;
 
   addNewTakeItOff(String name) {
     if(name == null || name == "" || name == " ") return;
@@ -63,6 +65,7 @@ class User {
     accessToken = json["accessToken"];
     listTakeItOff = json["listTakeItOff"];
     code = json["code"];
+    listProcessedList = json["listProcessedList"];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,7 +75,8 @@ class User {
       "description": description,
       "accessToken": accessToken,
       "listTakeItOff": listTakeItOff,
-      "code": code
+      "code": code,
+      "listProcessedList": listProcessedList
     };
   }
 }

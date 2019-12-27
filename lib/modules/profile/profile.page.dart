@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_take_it_off_please/modules/authentication/login.page.dart';
 import 'package:flutter_take_it_off_please/modules/profile/friends.page.dart';
+import 'package:flutter_take_it_off_please/modules/profile/processed-list.page.dart';
 
 import 'add-take-it-off.page.dart';
 import 'models/user.model.dart';
@@ -26,10 +27,17 @@ class _ProfilePageState extends State<ProfilePage> {
     ));
   }
 
-  _navigateToAFriends() {
+  _navigateToFriends() {
     Navigator.of(context).push(CupertinoPageRoute<void>(
       title: "",
       builder: (BuildContext context) => FriendsPage(user),
+    ));
+  }
+
+  _navigateToProcessedList() {
+    Navigator.of(context).push(CupertinoPageRoute<void>(
+      title: "",
+      builder: (BuildContext context) => ProcessedListPage(user),
     ));
   }
 
@@ -79,13 +87,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Container(
                 child: RaisedButton(
-                  onPressed: (){_navigateToAFriends();},
+                  onPressed: (){_navigateToFriends();},
                   child: Text("Amigos"),
                 ),
               ),
               Container(
                 child: RaisedButton(
-                  onPressed: (){},
+                  onPressed: (){_navigateToProcessedList();},
                   child: Text("Criar nova lista de convidados"),
                 ),
               ),

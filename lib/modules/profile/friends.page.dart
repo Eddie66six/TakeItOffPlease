@@ -27,7 +27,7 @@ class _FriendsPageState extends State<FriendsPage> {
   }
 
   _addNewFriends(String code){
-    widget.user.addNewFriend(Friend(1, "nome", "ds", code));
+    widget.user.addNewFriend(Friend(1, "nome " + code, "ds", code));
   }
 
   _removeFriends(Friend friend){
